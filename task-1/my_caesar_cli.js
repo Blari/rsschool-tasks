@@ -16,19 +16,17 @@ const options = program.opts();
 
 const input = options.input;
 const output = options.output;
+const action = options.action;
+const shift = options.shift;
 
 const write = fs.createWriteStream(output, 'utf8');
 const read = fs.createReadStream(input, 'utf8');
 
 pipeline(
   read,
-  createCaesarsCipherTransformer(),
+  createCaesarsCipherTransformer(action, +shift),
   write,
   (error) => {
-    error ? console.error('Pipeline failed', error) : console.log('Pipeline succeeded')
+    error ? console.error('Pipeline failed', error) : console.log('Encode/Decode succeeded')
   }
 )
-
-
-
-
