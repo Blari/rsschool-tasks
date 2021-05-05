@@ -4,9 +4,10 @@ const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm
 const isLetter = (letter) => !!(alphabet.indexOf(letter.toString().toLowerCase()) + 1);
 const newPosition = (currentPosition, shift) => {
   if (currentPosition + shift > alphabet.length) {
-    return (currentPosition + shift) - alphabet.length;
-  } else return currentPosition + shift;
+    return (currentPosition + shift) - alphabet.length - 1;
+  } else return currentPosition + shift - 1;
 }
+
 let outString = '';
 
 exports.createCaesarsCipherTransformer = (action, shift) =>
@@ -15,7 +16,7 @@ exports.createCaesarsCipherTransformer = (action, shift) =>
       if (action === 'encode') {
         [...chunk.toString()].forEach(e => {
           if ( isLetter(e) ) {
-            let letterPosition = alphabet.indexOf(e.toLowerCase());
+            let letterPosition = alphabet.indexOf(e.toLowerCase()) + 1;
             outString += alphabet[newPosition(letterPosition, shift)];
           } else {
             outString += e;
