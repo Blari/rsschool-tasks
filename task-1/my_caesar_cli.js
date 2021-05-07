@@ -2,7 +2,7 @@
 const fs = require('fs');
 const { pipeline } = require('stream');
 const { program } = require('commander');
-const { createCaesarsCipherTransformer } = require('./transform')
+const { caesarsTransformer } = require('./transform')
 program.version('0.0.1');
 
 program
@@ -19,13 +19,13 @@ const output = options.output;
 const action = options.action;
 const shift = options.shift;
 
-const write = fs.createWriteStream(output, 'utf8');
-const read = fs.createReadStream(input, 'utf8');
+const write = output ? fs.createWriteStream(output, 'utf8') : '';
+const read = input ? fs.createReadStream(input, 'utf8') : '';
 
-pipeline(
-  read,
-  createCaesarsCipherTransformer(action, +shift),
-  write,
+pipeline (
+  input ? read : process.stdin,
+  caesarsTransformer(action, +shift),
+  output ? write : process.stdout,
   (error) => {
     error ? console.error('Pipeline failed', error) : console.log('Encode/Decode succeeded')
   }

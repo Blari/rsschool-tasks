@@ -1,3 +1,17 @@
+##How to start
+
+```bash
+$ yarn install
+```
+###How to use
+
+CLI tool can accept 4 options (short alias and full name):
+
+-s, --shift: a shift
+-i, --input: an input file
+-o, --output: an output file
+-a, --action: an action encode/decode
+
 **Usage example:**
 1. _-a (--action)_ is **encode**
 
