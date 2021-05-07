@@ -1,4 +1,6 @@
 const { Transform } = require("stream");
+const { isLetter, isUpperCase } = require('helpers');
+
 const alphabet = [
   "a",
   "b",
@@ -27,8 +29,6 @@ const alphabet = [
   "y",
   "z",
 ];
-const isLetter = (letter) => !!(alphabet.indexOf(letter.toString().toLowerCase()) + 1);
-const isUpperCase = (string) => /^[A-Z]*$/.test(string);
 
 const newPosition = (currentPosition, shift) => {
 
