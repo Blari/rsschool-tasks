@@ -1,4 +1,3 @@
-const fs = require("fs");
 const { Transform } = require("stream");
 const { isLetter, isUpperCase, alphabet } = require("./helpers");
 
