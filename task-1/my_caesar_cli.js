@@ -3,7 +3,7 @@ const fs = require('fs');
 const { pipeline } = require('stream');
 const { program } = require('commander');
 const { caesarsTransformer } = require('./transform')
-program.version('0.0.1');
+const { isInput, isOutput } = require('./helpers')
 
 program
   .requiredOption('-s, --shift <integer>', 'a shift')
@@ -19,12 +19,15 @@ const output = options.output;
 const action = options.action;
 const shift = options.shift;
 
+isInput(input);
+isOutput(output);
+
 const write = output ? fs.createWriteStream(output, 'utf8') : '';
 const read = input ? fs.createReadStream(input, 'utf8') : '';
 
 pipeline (
   input ? read : process.stdin,
-  caesarsTransformer(action, +shift),
+  caesarsTransformer(action, +shift, output),
   output ? write : process.stdout,
   (error) => {
     error ? console.error('Pipeline failed', error) : console.log('Encode/Decode succeeded')
